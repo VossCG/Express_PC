@@ -32,6 +32,14 @@ const productSchema = new mongoose.Schema({
   },
 });
 
+productSchema.pre('save', () => {
+  console.log('before save action');
+})
+
+productSchema.post('save',()=>{
+  console.log('after save action');
+})
+
 const Product = mongoose.model('Product', productSchema);
 
 export default Product;

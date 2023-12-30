@@ -66,13 +66,26 @@ productRouter.delete('/:id', expressAsyncHandler(async (req, res) => {
     }
 }))
 
+productRouter.delete('/', expressAsyncHandler(async (req, res) => {
+    try {
+        const result = await Product.deleteMany()
+        if (result) {
+            res.status(200).json({ message: "delete all" })
+        } else {
+            res.status(404).json({ message: "data is empty" })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}))
+
 productRouter.put('/:id', expressAsyncHandler(async (req, res) => {
     try {
 
         const result = await Product.findByIdAndUpdate(
             req.params.id,
             req.body,
-            { new: true }
+            { new: true, runValidators: true }
         )
 
         if (result) {
