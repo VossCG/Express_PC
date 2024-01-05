@@ -1,45 +1,17 @@
 import mongoose from "mongoose";
+import { ExchangeRelationSchema } from "./ExchangeRelation.js";
 
-const productSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  cost: {
-    type: Number,
-    min: 0,
-    required: true,
-  },
-  inventory: {
-    type: Number,
-    min: 0,
-    required: true,
-  },
-  category: {
-    type: String,
-    enum: ["food", "toy", "book", "other"],
-    required: true
-  },
-  expiredDate: {
-    type: String,
-    required: true
-  },
-  imageUrl: {
-    type: String,
-    trim: true,
-    required: true
-  },
+export const ProductSchema = new mongoose.Schema({
+  id: String,
+  name: String,
+  points: Number,
+  category: String,
+  imageUrl: String,
+  stock: Number,
+  expiredDate: String,
+  isOnline: Boolean,
+  isAvailable: Boolean,
+  exchangeRelations: [ExchangeRelationSchema]
 });
 
-productSchema.pre('save', () => {
-  console.log('before save action');
-})
-
-productSchema.post('save',()=>{
-  console.log('after save action');
-})
-
-const Product = mongoose.model('Product', productSchema);
-
-export default Product;
+export const Product = mongoose.model('Product', ProductSchema);

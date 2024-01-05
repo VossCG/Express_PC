@@ -1,6 +1,6 @@
 
 import expressAsyncHandler from 'express-async-handler';
-import Product from '../model/Product.js';
+import { Product } from '../model/Product.js';
 import express from 'express';
 
 const productRouter = express.Router()
@@ -30,15 +30,14 @@ productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
 }))
 
 productRouter.post('/', expressAsyncHandler(async (req, res) => {
-    const { name, cost, inventory, category, expiredDate, imageUrl } = req.body
+    const { name, cost, inventory, expiredDate, exchangeRelation } = req.body
 
     const product = new Product({
         name: name,
         cost: cost,
         inventory: inventory,
-        category: category,
         expiredDate: expiredDate,
-        imageUrl: imageUrl
+        exchangeRelations: exchangeRelation
     })
 
     try {
