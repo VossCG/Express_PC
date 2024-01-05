@@ -3,7 +3,7 @@ class Transaction {
      * 
      * @param {String} machineID 
      * @param {String} productID 
-     * @param {String} type 
+     * @param {String} type (進貨、出貨、報廢) 
      * @param {Number} amount 
      * @param {String} timestamp 
      */
