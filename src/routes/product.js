@@ -24,7 +24,10 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        await Common.insert("product", req.body)
+        await Common.insert("product", {
+            id: req.body.id,
+            name: req.body.name,
+        })
         res.status(200).json({ message: "success" })
     } catch (error) {
         res.status(400).json({ message: error.message })
