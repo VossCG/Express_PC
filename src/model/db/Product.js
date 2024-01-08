@@ -3,7 +3,6 @@ const Relation = require("./Relation")
 class Product {
     /**
      * 
-     * @param {String} id 
      * @param {String} name 
      * @param {Number} points 
      * @param {String} category 
@@ -14,8 +13,7 @@ class Product {
      * @param {Boolean} isAvailable 
      * @param {Array<Relation>} exchangeRelations 
      */
-    constructor(id, name, points, category, imageURL, stock, expiredDate, isOnline, isAvailable, exchangeRelations) {
-        this.id = id
+    constructor(name, points, category, imageURL, stock, expiredDate, isOnline, isAvailable, exchangeRelations) {
         this.name = name
         this.stock = stock
         this.points = points

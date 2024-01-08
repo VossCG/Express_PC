@@ -15,7 +15,6 @@ app.use(corsMiddleware)
 
 // router
 app.use('/product', productRouter)
-app.use('/user', userRouter)
 
 // docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))

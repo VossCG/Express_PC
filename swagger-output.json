@@ -1,44 +1,45 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
+    "version": "1.0.0",
     "title": "Claw API",
-    "description": "Description",
-    "version": "1.0.0"
+    "description": ""
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Product"
+    },
+    {
+      "name": "User"
+    }
   ],
   "paths": {
     "/product/": {
       "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "post": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "不傳任何參數，將會回傳全部資料",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "name",
+            "in": "query",
+            "description": "產品名稱",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "產品分類",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -51,7 +52,10 @@
           }
         }
       },
-      "delete": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -60,18 +64,38 @@
           "400": {
             "description": "Bad Request"
           }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/product"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/product"
+              }
+            }
+          }
         }
       }
     },
     "/product/{id}": {
       "get": {
+        "tags": [
+          "Product"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -83,14 +107,19 @@
           }
         }
       },
-      "put": {
+      "delete": {
+        "tags": [
+          "Product"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -101,59 +130,114 @@
             "description": "Bad Request"
           }
         }
-      }
-    },
-    "/user/": {
-      "get": {
+      },
+      "put": {
         "tags": [
-          "User"
+          "Product"
         ],
-        "description": "Endpoint to sign in a specific user",
-        "responses": {
-          "200": {
-            "description": "OK",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Voss"
-                },
-                "age": {
-                  "type": "number",
-                  "example": 20
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+              "type": "string"
             }
           }
-        }
-      },
-      "post": {
-        "tags": [
-          "User"
         ],
-        "description": "new User",
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "success"
-                }
-              },
-              "xml": {
-                "name": "main"
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/productUpdate"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/productUpdate"
               }
             }
           }
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "可樂果"
+          },
+          "points": {
+            "type": "number",
+            "example": 100
+          },
+          "category": {
+            "type": "string",
+            "example": "食品"
+          }
+        },
+        "required": [
+          "name",
+          "points",
+          "category"
+        ],
+        "xml": {
+          "name": "product"
+        }
+      },
+      "productQuery": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "可樂果"
+          },
+          "category": {
+            "type": "string",
+            "example": "食品"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "xml": {
+          "name": "productQuery"
+        }
+      },
+      "productUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "乖乖"
+          },
+          "category": {
+            "type": "string",
+            "example": "零食"
+          }
+        },
+        "xml": {
+          "name": "productUpdate"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "",
+    "url": "http://localhost:3000/api-docs"
   }
 }
