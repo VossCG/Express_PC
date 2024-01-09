@@ -13,9 +13,6 @@
   "tags": [
     {
       "name": "Product"
-    },
-    {
-      "name": "User"
     }
   ],
   "paths": {
@@ -56,7 +53,7 @@
         "tags": [
           "Product"
         ],
-        "description": "",
+        "description": "Create a Product table row ",
         "responses": {
           "200": {
             "description": "OK"
@@ -101,6 +98,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found"
@@ -159,12 +159,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/productUpdate"
+                "$ref": "#/components/schemas/product"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/productUpdate"
+                "$ref": "#/components/schemas/product"
               }
             }
           }
@@ -181,57 +181,52 @@
             "type": "string",
             "example": "可樂果"
           },
-          "points": {
+          "stock": {
             "type": "number",
-            "example": 100
+            "example": 10
           },
           "category": {
             "type": "string",
             "example": "食品"
+          },
+          "imageURL": {
+            "type": "string",
+            "example": "https://unsplash.com/photos/a-stylized-image-of-a-person-holding-a-tennis-racquet-0Iuutf928Rk"
+          },
+          "isOnline": {
+            "type": "boolean",
+            "example": true
+          },
+          "isAvailable": {
+            "type": "boolean",
+            "example": false
+          },
+          "expiredDate": {
+            "type": "string",
+            "example": "2023/12/01"
+          },
+          "pointValue": {
+            "type": "number",
+            "example": 100
+          },
+          "pointRequired": {
+            "type": "number",
+            "example": 200
           }
         },
         "required": [
           "name",
-          "points",
-          "category"
+          "stock",
+          "category",
+          "imageURL",
+          "isOnline",
+          "isAvailable",
+          "expiredDate",
+          "pointValue",
+          "pointRequired"
         ],
         "xml": {
           "name": "product"
-        }
-      },
-      "productQuery": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "可樂果"
-          },
-          "category": {
-            "type": "string",
-            "example": "食品"
-          }
-        },
-        "required": [
-          "name"
-        ],
-        "xml": {
-          "name": "productQuery"
-        }
-      },
-      "productUpdate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "乖乖"
-          },
-          "category": {
-            "type": "string",
-            "example": "零食"
-          }
-        },
-        "xml": {
-          "name": "productUpdate"
         }
       }
     }

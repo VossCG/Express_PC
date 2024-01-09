@@ -12,7 +12,6 @@ const doc = {
     },
     tags: [
         { name: 'Product' },
-        { name: 'User' }
     ],
     servers: [
         {
@@ -23,17 +22,16 @@ const doc = {
         schemas: {
             product: {
                 $name: "可樂果",
-                $points: 100,
-                $category: "食品"
+                $stock: 10,
+                $category: "食品",
+                $imageURL: "https://unsplash.com/photos/a-stylized-image-of-a-person-holding-a-tennis-racquet-0Iuutf928Rk",
+                $isOnline: true,
+                $isAvailable: false,
+                $expiredDate: "2023/12/01",
+                $pointValue: 100,
+                $pointRequired: 200
             },
-            productQuery: {
-                $name: "可樂果",
-                category: "食品"
-            },
-            productUpdate: {
-                name: "乖乖",
-                category: "零食"
-            }
+
         }
     }
 };

@@ -36,26 +36,40 @@ router.get('/:id', async (req, res) => {
         /* #swagger.tags = ['Product'] */
 
         const result = await Common.find('product', { "_id": req.params.id })
-        res.status(200).json(result)
+        if (result) {
+            res.status(200).json(result)
+        } else {
+            res.status(404).json({ message: "not found" })
+        }
     } catch (error) {
-        res.status(404).json({ message: error.message })
+        res.status(400).json({ message: error.message })
     }
 })
 
 
 router.post('/', async (req, res) => {
-    /*  #swagger.tags = ['Product'] */
+    /*  #swagger.tags = ['Product'] 
+        #swagger.description = "Create a Product table row "
+        */
 
-    /*  #swagger.requestBody = {
-            required: true,
+    /* #swagger.requestBody = {
+            required:true,
             schema:{$ref:"#/components/schemas/product"}
-        } 
+        }
     */
 
+    // create a empty row , the whole data will be null
+
     const productSchema = Joi.object({
-        name: Joi.string().required(),
-        points: Joi.number().integer().min(0).required(),
-        category: Joi.string().required()
+        name: Joi.string().default(null),
+        stock: Joi.number().default(null),
+        category: Joi.string().default(null),
+        imageURL: Joi.string().default(null),
+        isOnline: Joi.boolean().default(null),
+        isAvailable: Joi.boolean().default(null),
+        expiredDate: Joi.string().default(null),
+        pointValue: Joi.number().min(0).default(null),
+        pointRequired: Joi.number().min(0).default(null)
     })
 
     const { error, value } = productSchema.validate(req.body)
@@ -85,11 +99,11 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        /* #swagger.tags = ['Product'] */
+        /* #swagger.tags = ['Product'] 
 
         /* #swagger.requestBody = {
             required:true,
-            schema:{$ref:"#/components/schemas/productUpdate"}
+            schema:{$ref:"#/components/schemas/product"}
         }
         */
 
